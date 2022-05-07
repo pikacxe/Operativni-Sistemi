@@ -17,14 +17,12 @@ private:
     condition_variable boom;
     bool rampa1, rampa2;
     int zapaljivi_kamioni;
-    int id_rampe;
 
 public:
     Skladiste(Kamion &k) : kamion(k)
     {
         // Prosiriti po potrebi ...
         zapaljivi_kamioni = 0;
-        id_rampe = 0;
         rampa1 = false;
         rampa2 = false;
     }
@@ -41,53 +39,52 @@ public:
     // Potrebno je pozvati metodu kamion.odlazi kada je kamion zavrsio istovar i odlazi.
     void istovari(int rbr, int kolicina, bool zapaljivo)
     {
+        unique_lock<mutex> l(m);
+        while (rampa1 == true && rampa2 == true)
         {
-            unique_lock<mutex> l(m);
-            while (rampa1 == true && rampa2 == true)
+            kamion.ceka(rbr, kolicina, zapaljivo);
+            if (zapaljivo)
             {
-                kamion.ceka(rbr, kolicina, zapaljivo);
-                if (zapaljivo)
-                {
-                    zapaljivi_kamioni++;
-                    boom.wait(l);
-                }
-                else{ 
-                    normal.wait(l);
-                }
-            }
-            if (rampa1 == false)
-            {
-                id_rampe = 0;
-                rampa1 = true;
-            }
-            else if(rampa2 == false)
-            {
-                id_rampe = 1;
-                rampa2 = true;
-            }
-            kamion.istovara(rbr, kolicina, zapaljivo, id_rampe);
-        }
-        this_thread::sleep_for(chrono::milliseconds(kolicina * 1000));
-        {
-            unique_lock<mutex> l(m);
-            if(rampa1 == true)
-            {
-                rampa1 = false;
-            }
-            else if(rampa2 == true)
-            {
-                rampa2 = false;
-            }
-            kamion.odlazi(rbr);
-            if (zapaljivi_kamioni > 0)
-            {
-                zapaljivi_kamioni--;
-                boom.notify_one();
+                zapaljivi_kamioni++;
+                boom.wait(l);
             }
             else
             {
-                normal.notify_one();
+                normal.wait(l);
             }
+        }
+        int id_rampe = 0;
+        if (rampa1 == false)
+        {
+            id_rampe = 0;
+            rampa1 = true;
+        }
+        else if (rampa2 == false)
+        {
+            id_rampe = 1;
+            rampa2 = true;
+        }
+        kamion.istovara(rbr, kolicina, zapaljivo, id_rampe);
+        l.unlock();
+        this_thread::sleep_for(chrono::milliseconds(kolicina * 1000));
+        l.lock();
+        if (id_rampe == 0)
+        {
+            rampa1 = false;
+        }
+        else if (id_rampe == 1)
+        {
+            rampa2 = false;
+        }
+        kamion.odlazi(rbr);
+        if (zapaljivi_kamioni > 0)
+        {
+            zapaljivi_kamioni--;
+            boom.notify_one();
+        }
+        else
+        {
+            normal.notify_one();
         }
     }
 };
