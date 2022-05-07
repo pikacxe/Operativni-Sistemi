@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1647273079 source:/home/stud/s124/Desktop/pr34_2020/03-Niti/Zadaci/zbir_korespodentnih_elemenata/main.cpp
+	<iostream>
+	"suma_vektora.h"
+	"niti.h"
+
+1647272583 /home/stud/s124/Desktop/pr34_2020/03-Niti/Zadaci/zbir_korespodentnih_elemenata/suma_vektora.h
+	<vector>
+
+1647274098 /home/stud/s124/Desktop/pr34_2020/03-Niti/Zadaci/zbir_korespodentnih_elemenata/niti.h
+	<vector>
+	<thread>
+	"suma_vektora.h"
+

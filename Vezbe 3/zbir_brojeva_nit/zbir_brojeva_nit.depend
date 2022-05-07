@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1647266391 source:/home/stud/s124/Desktop/pr34_2020/03-Niti/Zadaci/zbir_brojeva_nit/main.cpp
+	<iostream>
+	<thread>
+
