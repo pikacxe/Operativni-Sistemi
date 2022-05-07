@@ -34,7 +34,7 @@ void kupac(Prodavnica &p, int id_kupca) {
 
 const int KUPACA = 10;
 
-int testirajSve() {
+void testirajSve() {
     Kupac k;
     Prodavnica p(k, 3);
     thread kupci[KUPACA];
