@@ -48,11 +48,9 @@ public:
         {
             takmicar.skakac_ceka(rbr);
             br_skakaca++;
-            cout << "Skakac: " << br_skakaca << endl;
             cs.wait(l);
         }
         br_skakaca--;
-        cout << "Skakac: " << br_skakaca << endl;
         zauzeta = true;
         takmicar.skakac_skace(rbr);
         l.unlock();
@@ -91,11 +89,9 @@ public:
         {
             takmicar.bacac_ceka(rbr);
             br_bacaca++;
-            cout << "Bacac: " << br_bacaca << endl;
             cb.wait(l);
         }
         br_bacaca--;
-        cout << "Bacac: " << br_bacaca << endl;
         zauzeta = true;
         takmicar.bacac_baca(rbr);
         l.unlock();
@@ -114,7 +110,6 @@ public:
         {
             cs.notify_one();
         }
-        cs.notify_one();
         return pv;
     }
 };

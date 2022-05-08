@@ -6,17 +6,36 @@
 #include <random>
 
 #include "kupac.h"
+#include <mutex>
+#include <condition_variable>
+#include <chrono>
+#include <vector>
+#include <random>
 
 using namespace std;
 using namespace chrono;
 
+struct Kasa{
+    int red;
+    int id;
+    bool aktivna;
+    condition_variable cv;
+    Kasa(int i): red(0), id(i), aktivna(false){}
+};
 
 class Eksamarket {
     private:
         // Dodaj B
+        Kupac& k;
+        mutex m;
+        vector<Kasa> kase;
+
     public:
-        Eksamarket(Kupac &k, int broj_kasa) {
+        Eksamarket(Kupac &k, int broj_kasa): k(k) {
             // Dopuni B po potrebi
+            for(int i = 0;i<broj_kasa;i++){
+                kase.push_back(Kasa(i));
+            }
         }
         ~Eksamarket() {
             // Dopuni B po potrebi
@@ -33,6 +52,14 @@ class Eksamarket {
 	*/
         void kupovina(int id) {
             // Implementiraj B kupac
+            unique_lock<mutex> l(m);
+            auto it = kase.begin();
+            for(; it != kase.end(); ++it){
+                if(it->aktivna){
+                    break;
+                }
+            }
+
 
         }
 
@@ -43,6 +70,13 @@ class Eksamarket {
 	*/
         void smena_kasa() {
             // Implementiraj B smena
+            while(true){
+                int id = rand() % kase.size();
+                kase.at(id).aktivna = false;
+                id = rand() % kase.size();
+                kase.at(id).aktivna = true;
+                this_thread::sleep_for(seconds(1));
+            }
         }
 };
 
