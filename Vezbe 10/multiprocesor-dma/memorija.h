@@ -4,6 +4,7 @@
 #include <mutex>
 #include <vector>
 
+using namespace std;
 
 class Memorija {
 private:
@@ -12,7 +13,7 @@ private:
 public:
     Memorija(int bajtova) {
         // Implementirati ...
-        mem.resize(bajtova,'-1');
+        mem.resize(bajtova,'-');
     }
 
     char citaj(int adresa) {

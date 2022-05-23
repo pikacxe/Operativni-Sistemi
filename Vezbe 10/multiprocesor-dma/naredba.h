@@ -21,7 +21,7 @@ struct Naredba {
         : tip_transfera(Magistrala::MEM_CITAJ), odakle(adresa) {}
     Naredba(int adresa, char v)
         : tip_transfera(Magistrala::MEM_PISI), kome(adresa), vrednost(v) {}
-    Naredba(int o, int kom, int kol)
+    Naredba(int o, int kol, int kom)
        : tip_transfera(Magistrala::DMA), odakle(o), koliko(kol), kome(kom) {}
 };
 
