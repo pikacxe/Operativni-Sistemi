@@ -53,7 +53,7 @@ public:
         }
         stanje = MEM_CITAJ;
         l.unlock();
-        this_thread::sleep_for(milliseconds(300));
+        this_thread::sleep_for(milliseconds(700));
         l.lock();
         stanje = SLOBODNA;
         cv.notify_one();
@@ -68,7 +68,7 @@ public:
         }
         stanje = MEM_PISI;
         l.unlock();
-        this_thread::sleep_for(milliseconds(300));
+        this_thread::sleep_for(milliseconds(700));
         l.lock();
         mem.pisi(adresa, vrednost);
         stanje = SLOBODNA;
@@ -85,9 +85,6 @@ public:
         l.unlock();
         this_thread::sleep_for(milliseconds(700));
         l.lock();
-        for(int i = 0; i< transfer.koliko; i++){
-            mem.pisi(transfer.kome+i, mem.citaj(transfer.odakle+i));
-        }
         trenutni = transfer;
         dma_obradjen = true;
         cv_obrada.notify_one();
@@ -100,6 +97,9 @@ public:
             cv_obrada.wait(l);
         }
         if(gotovo) return (DMA_transfer){-1,0,0};
+        for(int i = 0; i< trenutni.koliko; i++){
+            mem.pisi(trenutni.kome+i, mem.citaj(trenutni.odakle+i));
+        }
         stanje = SLOBODNA;
         dma_obradjen = false;
         cv.notify_one();
