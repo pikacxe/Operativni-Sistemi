@@ -2,7 +2,8 @@
 //
 // Kod ovog načina raspoređivanja diska, UI zahtevi se obrađuju prema redosledu dolaska. 
 //
-// Klasa OS predstavlja deo operativnog sistema koji je zadužen za raspoređivanje zahteva. Metodu uputi_UI_zahtev pozivaju niti koje predstavljaju procese.
+// Klasa OS predstavlja deo operativnog sistema koji je zadužen za raspoređivanje zahteva.
+// Metodu uputi_UI_zahtev pozivaju niti koje predstavljaju procese.
 // U ovoj metodi prosleđuje se zahtev UI uređaju da izvrši UI operaciju na određenoj stazi diska.
 // Proces mora da sačeka da zahtev bude izvršen, pre nego nastavi dalje izvršavanje.
 //

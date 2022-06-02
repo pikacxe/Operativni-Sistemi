@@ -1,8 +1,10 @@
 // Napisati konkurentni program koji simulira jednostavno zauzimanje radne memorije od strane procesa.
-// Radna memorija je predstavljena datom klasom Radna_memorija i podeljena je na N okvira (N se prosleđuje pri instanciranju objekta klase Radna_memorija).
+// Radna memorija je predstavljena datom klasom Radna_memorija i podeljena je na N okvira
+// (N se prosleđuje pri instanciranju objekta klase Radna_memorija).
 // Okvir predstavlja skup memorijskih lokacija u koji se mogu smestiti podaci ili instrukcije procesa.
 //
-// Procesi su predstavljeni nitima. Podaci i instrukcije procesa su podeljeni u stranice. Stranice procesa su jednake veličine kao okviri radne memorije.
+// Procesi su predstavljeni nitima. Podaci i instrukcije procesa su podeljeni u stranice.
+// Stranice procesa su jednake veličine kao okviri radne memorije.
 // Da bi se proces izvršio, mora sve svoje stranice da učita u okvire radne memorije. 
 // Nije obavezno da stranice jednog procesa budu smeštene u susedne okvire radne memorije.
 //

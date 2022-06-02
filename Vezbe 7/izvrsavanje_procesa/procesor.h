@@ -45,7 +45,7 @@ public:
         for (int i = 0; i < broj_naredbi; i++)
         {
             unique_lock<mutex> l(m);
-            while (slobodan_processor)
+            while (!slobodan_processor)
             {
                 dijagnostika.proces_ceka(id);
                 cv_process.wait(l);
@@ -80,7 +80,7 @@ public:
         // Implementirati ...
         unique_lock<mutex> l(m);
         prekid = true;
-        while (slobodan_processor)
+        while (!slobodan_processor)
         {
             dijagnostika.obradjivac_ceka();
             cv_ui.wait(l);

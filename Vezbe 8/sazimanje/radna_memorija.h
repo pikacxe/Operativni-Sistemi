@@ -106,7 +106,6 @@ public:
         dijagnostika.sazimanje_obavljeno();
         dijagnostika.ispisi_memoriju(okviri.begin(), okviri.end());
         cv_process.notify_all();
-        
     }
 
     void Kraj(){

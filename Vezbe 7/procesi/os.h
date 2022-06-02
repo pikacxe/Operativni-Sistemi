@@ -83,6 +83,7 @@ public:
                     cv_process.notify_one();
                     l.unlock();
                     this_thread::sleep_for(chrono::milliseconds(100));
+                    l.lock();
                 }
             }
             else if ((*it) == UI)
@@ -118,11 +119,12 @@ public:
         {
             // Implementirati ...
             unique_lock<mutex> l(m);
-            while (zahtevi.empty() && end)
+            while (zahtevi.empty() && !end)
             {
                 dijagnostika.ui_ceka();
                 cv_ui.wait(l);
             }
+            if(end) break;
             UI_Zahtev *trenutni = zahtevi.front();
             zahtevi.pop();
             dijagnostika.ui_zapocinje(trenutni->process_id);
