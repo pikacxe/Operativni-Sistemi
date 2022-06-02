@@ -26,7 +26,7 @@ private:
     Dijagnostika& dijagnostika;
     mutex m;
     condition_variable cv, cv_obrada;
-    bool gotovo, dma_obradjen;;
+    bool gotovo, dma_obradjen;
     Memorija& mem;
     Stanje stanje;
     DMA_transfer trenutni;
