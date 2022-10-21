@@ -1,4 +1,6 @@
 *.out
 .vscode
 main
+test
+viz
 a.out
